@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-pydantic-jsonfield"
+version = "0.1.0"
+description = "A Django JSONField extension using Pydantic for data validation."
+authors = [{name = "Brian Guggenheimer", email = "bguggs@gmail.com"}]
+license = {file = "LICENSE"}
+readme = "README.md"
+keywords = ["django", "pydantic", "jsonfield"]
+classifiers = [
+  "Framework :: Django",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "Django>=5.0",
+    "pydantic>=2.0"
+]
