@@ -8,7 +8,6 @@ Django Pydantic JSONField is a Django app that extends Django's native `JSONFiel
 
 - Easy integration with existing Django models.
 - Support for complex data schemas using Pydantic models.
-- Customizable validation messages.
 - Improved data integrity and error handling for JSON fields.
 
 ## Installation

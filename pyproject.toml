@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-pydantic-jsonfield"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Django JSONField extension using Pydantic for data validation."
 authors = [{name = "Brian Guggenheimer", email = "bguggs@gmail.com"}]
 license = {file = "LICENSE"}
