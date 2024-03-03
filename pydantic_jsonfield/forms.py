@@ -1,9 +1,10 @@
+import json
 from json import JSONDecodeError, JSONEncoder
-from django.core.exceptions import ValidationError
 
 from django import forms
-import json
-from pydantic import BaseModel, ValidationError as PydanticValidationError
+from django.core.exceptions import ValidationError
+from pydantic import BaseModel
+from pydantic import ValidationError as PydanticValidationError
 
 
 class PrettyJSONWidget(forms.widgets.Textarea):

@@ -1,9 +1,10 @@
 import json
-from json import JSONEncoder, JSONDecoder
+from json import JSONDecoder, JSONEncoder
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from pydantic import BaseModel, ValidationError as PydanticValidationError
+from pydantic import BaseModel
+from pydantic import ValidationError as PydanticValidationError
 
 from pydantic_jsonfield.forms import PydanticJSONFormField
 
@@ -41,7 +42,7 @@ class PydanticModelEncoder(JSONEncoder):
         "exclude_defaults": False,
         "exclude_none": False,
         "round_trip": False,
-        "warnings": True
+        "warnings": True,
     }
 
     def __init__(self, *args, **kwargs):
