@@ -6,7 +6,7 @@ from django.db import models
 from pydantic import BaseModel
 from pydantic import ValidationError as PydanticValidationError
 
-from pydantic_jsonfield.forms import PydanticJSONFormField
+from django_pydantic_jsonfield.forms import PydanticJSONFormField
 
 
 class PydanticJSONFieldDescriptor:

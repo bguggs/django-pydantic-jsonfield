@@ -1,7 +1,7 @@
 from django.test import TestCase
 from pydantic import BaseModel, ValidationError
 
-from pydantic_jsonfield.fields import PydanticJSONField
+from django_pydantic_jsonfield.fields import PydanticJSONField
 
 
 class ItemModel(BaseModel):
