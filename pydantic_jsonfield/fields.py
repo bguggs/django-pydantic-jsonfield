@@ -48,7 +48,7 @@ class PydanticModelEncoder(JSONEncoder):
     def __init__(self, *args, **kwargs):
         self.model_dump_json_options = self.default_model_dump_json_options.copy()
         for key, value in kwargs.copy().items():
-            # Update the default options with any provided options
+            # Update the model_dump_json_options options with any provided options
             if key in self.model_dump_json_options:
                 self.model_dump_json_options[key] = value
             del kwargs[key]
@@ -56,6 +56,7 @@ class PydanticModelEncoder(JSONEncoder):
 
     def default(self, obj):
         if isinstance(obj, BaseModel):
+            # Convert the Pydantic model instance to a JSON serializable python object
             return json.loads(obj.model_dump_json(**self.model_dump_json_options))
         return super().default(obj)
 
@@ -77,6 +78,16 @@ class PydanticJSONField(models.JSONField):
         kwargs["encoder"] = kwargs.pop("encoder", PydanticModelEncoder)
         kwargs["decoder"] = kwargs.pop("decoder", PydanticModelDecoder)
         super().__init__(*args, **kwargs)
+
+    def pre_save(self, model_instance: "models.Model", add: bool):
+        """Validate the value using the provided Pydantic model."""
+        value = getattr(model_instance, self.attname)
+        if isinstance(value, self.pydantic_model):
+            try:
+                self.pydantic_model.model_validate_json(value.model_dump_json())
+            except PydanticValidationError as e:
+                raise ValidationError(f"Validation error for {self.attname}: {e}")
+        return super().pre_save(model_instance, add)
 
     def prepare_value(self, value: BaseModel | dict | None) -> BaseModel | None:
         """Convert the value into a Pydantic model instance."""
@@ -104,7 +115,6 @@ class PydanticJSONField(models.JSONField):
                 return self.pydantic_model(**value)
         except (PydanticValidationError, json.JSONDecodeError) as e:
             raise ValidationError(str(e))
-
         return value
 
     def deconstruct(self) -> tuple[str, str, list, dict]:
