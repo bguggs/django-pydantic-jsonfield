@@ -16,6 +16,6 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-    "Django>=5.0",
+    "Django>=2.2",
     "pydantic>=2.0"
 ]
