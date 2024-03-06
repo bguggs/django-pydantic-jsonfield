@@ -2,7 +2,6 @@ import json
 from json import JSONDecoder, JSONEncoder
 
 import django
-
 if django.VERSION < (3, 1):
     from django_jsonfield_backport.models import JSONField
 else:
