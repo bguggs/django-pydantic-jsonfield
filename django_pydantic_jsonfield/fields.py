@@ -1,8 +1,13 @@
 import json
 from json import JSONDecoder, JSONEncoder
 
+import django
+if django.VERSION < (3, 1):
+    from django_jsonfield_backport.models import JSONField
+else:
+    from django.db.models import JSONField
+
 from django.core.exceptions import ValidationError
-from django.db import models
 from pydantic import BaseModel
 from pydantic import ValidationError as PydanticValidationError
 
@@ -72,7 +77,7 @@ class PydanticModelDecoder(JSONDecoder):
         return obj
 
 
-class PydanticJSONField(models.JSONField):
+class PydanticJSONField(JSONField):
     def __init__(self, *args, pydantic_model: type[BaseModel], **kwargs):
         self.pydantic_model = pydantic_model
         kwargs["encoder"] = kwargs.pop("encoder", PydanticModelEncoder)

@@ -1,5 +1,10 @@
 import json
 
+import django
+if django.VERSION < (3, 1):
+    from django_jsonfield_backport.forms import JSONField
+else:
+    from django.forms import JSONField
 from django import forms
 from pydantic import BaseModel
 
@@ -17,7 +22,7 @@ class PrettyJSONWidget(forms.widgets.Textarea):
             return super(PrettyJSONWidget, self).format_value(value)
 
 
-class PydanticJSONFormField(forms.JSONField):
+class PydanticJSONFormField(JSONField):
     def __init__(self, *args, pydantic_model: type[BaseModel], **kwargs) -> None:
         self.pydantic_model = pydantic_model
         kwargs.setdefault("widget", PrettyJSONWidget)
