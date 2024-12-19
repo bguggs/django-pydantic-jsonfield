@@ -1,3 +1,4 @@
+### Notice
 If you stumbled across this project, you may prefer https://github.com/surenkov/django-pydantic-field. It solves a similar problem but is better maintained than this project. Good luck and happy coding!
 
 # Django Pydantic JSONField
